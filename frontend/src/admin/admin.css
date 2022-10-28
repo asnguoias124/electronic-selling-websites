@@ -1,0 +1,8 @@
+td span {
+    /* wrap text */
+    max-width: 400px;
+    display: inline-block;
+    white-space: normal;
+    word-wrap: break-word;
+
+}

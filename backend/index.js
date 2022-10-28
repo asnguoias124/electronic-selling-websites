@@ -16,6 +16,13 @@ mongoose.connect(process.env.MONGODB_URL, () => {
         console.log("Error connecting to MongoDB " + mongoose.connection.readyState);
     }
 })
+mongoose.set('toJSON', {
+    transform: function (doc, ret, options) {
+        ret.id = ret._id;
+        delete ret._id;
+        delete ret.__v;
+    }
+}); 
 
 app.use(cors());
 app.use(express.json());

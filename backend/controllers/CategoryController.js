@@ -4,6 +4,9 @@ const CategoryController = {
     getAllCategories: async(req, res) => {
         try {
             const categories = await Category.find();
+            res.header("Access-Control-Expose-Headers", "Content-Range");
+           
+            res.header("Content-Range", `products 0-9/${categories.length}`);
             return res.status(200).json(categories);
         }catch(err) {
             return res.status(500).json(err);
@@ -18,11 +21,14 @@ const CategoryController = {
         }
     },
 
-    //not yet deleteCategory because i will create a new category again
     deleteCategory: async(req, res) => {
         try {
-            const category = await Category.findById(req.params.id);
-            return res.status(200).json(category.name + ' deleted');
+            await Product.updateMany(
+                {category: req.params.id},
+                {$set: {category: null}}
+            );
+            await Category.findByIdAndDelete(req.params.id);
+            return res.status(200).json('Category deleted');
         }catch(err) {
             return res.status(500).json(err);
         }
