@@ -1,6 +1,6 @@
 import {List, Datagrid, TextField, EditButton, Edit, SimpleForm, TextInput, Create, NumberField, useGetOne} from 'react-admin';
 
-// const {data : name} = useGetOne('category', {id: record.category} );
+
 
 export const listCategory = (props) => (
     <List {...props}>

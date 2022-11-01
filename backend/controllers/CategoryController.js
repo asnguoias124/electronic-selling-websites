@@ -1,4 +1,5 @@
 const Category = require('../models/Category');
+const Product = require('../models/Product');
 
 const CategoryController = {
     getAllCategories: async(req, res) => {
@@ -25,7 +26,7 @@ const CategoryController = {
         try {
             await Product.updateMany(
                 {category: req.params.id},
-                {$set: {category: null}}
+                {$pull: {category: req.params.id}}
             );
             await Category.findByIdAndDelete(req.params.id);
             return res.status(200).json('Category deleted');
