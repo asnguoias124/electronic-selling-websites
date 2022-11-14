@@ -3,6 +3,7 @@ import {
     loginFailed,
     loginStart,
     loginSuccess,
+    logoutStart,
   } from "./authSlice"
 
 
@@ -26,4 +27,13 @@ export const registerUser = async (user, dispatch, navigate) => {
     } catch (err) {
         dispatch(loginFailed());
     }
+}
+
+export const logoutUser = async (dispatch, navigate) => {
+    dispatch(logoutStart())
+    try {
+    } catch (err) {
+    }
+
+
 }
