@@ -12,13 +12,13 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true,
         minLength: 5,
-        maxLength: 100,
+        // maxLength: 100,
     },
     image: {
         type: String,
         required: true,
         minLength: 5,
-        maxLength: 50
+        // maxLength: 50
     },
     price: {
         type: Number,

@@ -35,8 +35,3 @@ export const store = configureStore({
 
 export let persistor = persistStore(store);
 
-// export default configureStore({
-//     reducer: {
-//         auth: authReducer,
-//     },
-// });

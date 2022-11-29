@@ -12,6 +12,7 @@ import HomePage from './pages/home/HomePage';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {theme} from './utils/theme';
 import {CssBaseline} from '@mui/material';
+import Layout from './pages/home/layout';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} /> 
           <Route path = "/admin" element={<Admin />}/>
         </Routes>
+        <Layout/>
       </ThemeProvider>
     </div>
   );

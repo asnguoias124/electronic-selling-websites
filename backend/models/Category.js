@@ -12,13 +12,13 @@ const categorySchema = new mongoose.Schema({
         type: String,
         required: true,
         minLength: 5,
-        maxLength: 50
+        // maxLength: 50
     },
     image: {
         type: String,
         required: true,
         minLength: 5,
-        maxLength: 50
+        // maxLength: 50
     },
     products: [{
         type: mongoose.Schema.Types.ObjectId,
