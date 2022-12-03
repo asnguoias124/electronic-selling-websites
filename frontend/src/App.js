@@ -4,15 +4,13 @@ import Admin from './admin/Admin';
 import SignIn from './signin-signup/signin/login';
 import {Routes, Route} from 'react-router-dom';
 import SignUp from './signin-signup/signup/signUp';
-import {useSelector, useDispatch} from 'react-redux';
-import {useNavigate} from 'react-router-dom';
-import { useEffect } from 'react';
-import NavBar from './components/NavBar';
-import HomePage from './pages/home/HomePage';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {theme} from './utils/theme';
 import {CssBaseline} from '@mui/material';
-import Layout from './pages/home/layout';
+import Home from "./pages/Home";
+import ProductList from "./pages/ProductList";
+import Cart from "./pages/Cart";
+import Product from "./pages/Product";
 
 
 function App() {
@@ -21,15 +19,15 @@ function App() {
     <div className="App">
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        
-        <NavBar />
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path='/' element={<Home />} />
+          <Route path='/products/:cat' element={<ProductList />} />
+          <Route path='/product/:id' element={<Product />} />
+          <Route path='/cart' element={<Cart />} />
           <Route path="/login" element={<SignIn />} />
-          <Route path="/signup" element={<SignUp />} /> 
+          <Route path="/register" element={<SignUp />} /> 
           <Route path = "/admin" element={<Admin />}/>
         </Routes>
-        <Layout/>
       </ThemeProvider>
     </div>
   );

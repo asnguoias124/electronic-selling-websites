@@ -34,6 +34,4 @@ export const logoutUser = async (dispatch, navigate) => {
     try {
     } catch (err) {
     }
-
-
 }
