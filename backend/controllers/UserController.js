@@ -13,7 +13,7 @@ const UserController = {
        //delete user
         try {
             const user = await User.findByIdAndDelete(req.params.id);
-            return res.status(200).json(user.userName + ' deleted');
+            return res.status(200).json(user.username + ' deleted');
         }
         catch(err) {
             return res.status(500).json(err);

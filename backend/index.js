@@ -4,10 +4,13 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
+
 const categoryRoute = require("./routes/Category");
 const productRoute = require("./routes/Product");
 const authRoute = require("./routes/Auth");
 const userRoute = require("./routes/User");
+const cartRoute = require("./routes/Cart");
+const orderRoute = require("./routes/Order");
 
 
 
@@ -39,6 +42,8 @@ app.use('/v1/category', categoryRoute);
 app.use('/v1/product', productRoute);
 app.use('/v1/auth', authRoute);
 app.use('/v1/user', userRoute);
+app.use('/v1/cart',cartRoute);
+app.use('/v1/order', orderRoute);
 
 let port = 8000;
 app.listen(port, () => console.log('server is running in port ' + port));

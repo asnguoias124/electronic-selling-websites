@@ -1,28 +1,41 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
+const Cart = require('../models/Cart');
 const dotenv = require('dotenv');
 
 let refreshTokens = [];
 dotenv.config();
 
+var data
 const authController = {
     registerUser: async (req, res) => {
         try {
             const salt = await bcrypt.genSalt(10);
             const hashed = await bcrypt.hash(req.body.password, salt);
-
+            
             //create new user
             const newUser = await new User({
                 username: req.body.username,
                 email: req.body.email,
                 password: hashed,
+                
             });
-
             //save new user to database
             const user = await newUser.save();
+            const cart = await new Cart({
+                userId: user.id,
+                products: []
+            });
+
+            user.cart = cart.id;
+            await user.save();
+            await cart.save();
+            
+            await cart.save();
             return res.status(200).json(user);
         } catch (err) {
+            console.log(data)
             return res.status(500).json(err);
         }
     },
