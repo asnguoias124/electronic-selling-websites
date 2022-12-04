@@ -11,6 +11,8 @@ import Home from "./pages/Home";
 import ProductList from "./pages/ProductList";
 import Cart from "./pages/Cart";
 import Product from "./pages/Product";
+import About from './pages/About';
+import Contact from './pages/Contact';
 
 
 function App() {
@@ -27,6 +29,8 @@ function App() {
           <Route path="/login" element={<SignIn />} />
           <Route path="/register" element={<SignUp />} /> 
           <Route path = "/admin" element={<Admin />}/>
+          <Route path = "/about" element={<About />}/>
+          <Route path = "/contact" element={<Contact />}/>
         </Routes>
       </ThemeProvider>
     </div>

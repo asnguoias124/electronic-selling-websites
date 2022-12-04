@@ -1,5 +1,4 @@
-import AddIcon from '@mui/icons-material/Add';
-import RemoveIcon from '@mui/icons-material/Remove';
+
 import { useSelector } from 'react-redux';
 import styled from "styled-components";
 import Announcement from "../components/Announcement";
@@ -7,7 +6,7 @@ import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const KEY = process.env.REACT_APP_STRIPE;
 
@@ -191,7 +190,7 @@ const Cart = () => {
       <Wrapper>
         <Title>YOUR BAG</Title>
         <Top>
-          <TopButton>CONTINUE SHOPPING</TopButton>
+          <TopButton><Link to = '/' >CONTINUE SHOPPING</Link></TopButton>
           <TopTexts>
             <TopText>Shopping Bag(2)</TopText>
             <TopText>Your Wishlist (0)</TopText>
@@ -219,9 +218,7 @@ const Cart = () => {
             </ProductDetail>
             <PriceDetail>
               <ProductAmountContainer>
-                <AddIcon/>
                 <ProductAmount>{product.quantity}</ProductAmount>
-                <RemoveIcon />
               </ProductAmountContainer>
               <ProductPrice>
                 $ {product.price * product.quantity}

@@ -11,7 +11,8 @@ import { useEffect, useState } from "react";
 import { publicRequest } from "../requestMethods";
 import { addProduct } from "../redux/cartRedux";
 import { useDispatch } from "react-redux";
-
+import { addProductToCart, removeProductFromCart } from '../redux/apiRequest';
+import { useSelector } from 'react-redux';
 const Container = styled.div``;
 
 const Wrapper = styled.div`
@@ -127,9 +128,9 @@ const Product = () => {
   const id = location.pathname.split("/")[2];
   const [product, setProduct] = useState({});
   const [quantity, setQuantity] = useState(1);
-  const [color, setColor] = useState("");
-  const [size, setSize] = useState("");
   const dispatch = useDispatch();
+  const user = useSelector(state => state.auth.login.currentUser);
+  const userId= user._id;
 
 
   useEffect(() => {
@@ -151,9 +152,16 @@ const Product = () => {
   };
 
   const handleClick = () => {
+    
+    console.log(quantity, product.id, userId)
+    const productId = product.id;
+    addProductToCart({quantity, productId, userId, dispatch} )
     dispatch(
-      addProduct({ ...product, quantity, color, size })
-    );
+      addProduct({ ...product, quantity })
+    
+      
+      );
+      // console.log(product, user)
   };
 
   return (
@@ -168,24 +176,6 @@ const Product = () => {
           <Title>{product.name}</Title>
           <Desc>{product.description}</Desc>
           <Price>$ {product.price}</Price>
-          <FilterContainer>
-            <Filter>
-            <Filter>
-            <FilterTitle>Color</FilterTitle>
-            {product.color?.map((c) => (
-              <FilterColor color={c} key={c} onClick={() => setColor(c)} />
-            ))}
-          </Filter>
-            </Filter>
-            <Filter>
-              <FilterTitle>Size</FilterTitle>
-              <FilterSize onChange={(e) => setSize(e.target.value)}>
-                {product.size?.map((s) => (
-                  <FilterSizeOption key={s}>{s}</FilterSizeOption>
-                ))}
-              </FilterSize>
-            </Filter>
-          </FilterContainer>
           <AddContainer>
             <AmountContainer>
               <RemoveIcon onClick={() => handleQuantity("dec")} />

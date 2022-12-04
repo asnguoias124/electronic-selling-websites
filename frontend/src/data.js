@@ -5,6 +5,7 @@ export const sliderItems = [
       title: "BLACK FRIDAY",
       desc: "SALE UP TO 90% OFF",
       bg: "f5fafd",
+      cat: 'smartphone'
     },
     {
       id: 2,
@@ -12,6 +13,7 @@ export const sliderItems = [
       title: "NEW!!!",
       desc: "NOW IPHONE 14 IS AVAILABLE",
       bg: "f5fafd",
+      cat: 'laptop'
     },
     {
       id: 3,
@@ -19,6 +21,7 @@ export const sliderItems = [
       title: "NEW!!!",
       desc: "SHOP NOW. APPLE WATCH SERIES 6",
       bg: "f5fafd",
+      cat: 'smartwatch'
     },
   ];
 

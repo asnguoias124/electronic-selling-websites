@@ -3,7 +3,7 @@ const userController = require('../controllers/UserController');
 const router = require('express').Router();
 
 //get all users
-router.get("/",middleware.verifyToken, userController.getAllUsers);
+router.get("/", userController.getAllUsers);
 
 // get users
 router.get("/:id",middleware.verifyToken, userController.getUser);

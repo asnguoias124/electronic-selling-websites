@@ -8,12 +8,12 @@ import { useSelector} from 'react-redux'
 import { Link } from 'react-router-dom';
 
 const Container = styled.div`
-  height: 60px;
   display: contents;
   ${mobile({ height: "50px" })}
 `;
 
 const Wrapper = styled.div`
+height: 60px;
   padding: 10px 20px;
   display: flex;
   align-items: center;
@@ -49,6 +49,7 @@ const Input = styled.input`
 const Center = styled.div`
   flex: 1;
   text-align: center;
+  display: flex;
 `;
 
 const Logo = styled.h1`
@@ -68,6 +69,15 @@ const MenuItem = styled.div`
   cursor: pointer;
   margin-left: 25px;
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
+
+  & a {
+    color: #000;
+    text-decoration: none;  
+  }
+
+  &:hover a{
+    color: #ff3d00;
+  }
 `;
 
 const Navbar = () => {
@@ -78,17 +88,18 @@ const Navbar = () => {
     <Container>
       <Wrapper>
         <Left>
-          <Language>EN</Language>
+         <Logo>LAMA.</Logo>
+        </Left>
+        <Center>
+          <MenuItem><Link to = '/'>Home</Link></MenuItem>
+          <MenuItem><Link to = '/about'>About</Link></MenuItem>
+          <MenuItem><Link to = '/contact'>Contact</Link></MenuItem>
+        </Center>
+        <Right>
           <SearchContainer>
             <Input placeholder="Search" />
             <SearchIcon style={{ color: "gray", fontSize: 16 }} />
           </SearchContainer>
-        </Left>
-        <Center>
-          <Logo>LAMA.</Logo>
-        </Center>
-        <Right>
-          <MenuItem><Link to = '/register'>REGISTER</Link></MenuItem>
           <MenuItem><Link to = '/login'>LOGIN</Link></MenuItem>
           <MenuItem>
             <Link to='/cart'>
