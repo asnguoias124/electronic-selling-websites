@@ -187,6 +187,9 @@ const Cart = () => {
     axios.post('http://localhost:8000/pay', {
       total: cart.total
     },)
+    .then((response) => {
+      window.open(response.data)
+    })
   }
   return (
     <Container>

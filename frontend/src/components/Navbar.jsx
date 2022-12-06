@@ -13,11 +13,17 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-height: 60px;
+  height: 60px; 
   padding: 10px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  background-color: #fff;
+  right: 0;
+  left: 0;
   ${mobile({ padding: "10px 0px" })}
 `;
 
@@ -27,29 +33,29 @@ const Left = styled.div`
   align-items: center;
 `;
 
-const Language = styled.span`
-  font-size: 14px;
-  cursor: pointer;
-  ${mobile({ display: "none" })}
-`;
-
 const SearchContainer = styled.div`
   border: 0.5px solid lightgray;
   display: flex;
   align-items: center;
   margin-left: 25px;
   padding: 5px;
+  border-radius: 15px;
 `;
 
 const Input = styled.input`
   border: none;
   ${mobile({ width: "50px" })}
+
+  &:focus-visible{
+    outline: none;
+  }
 `;
 
 const Center = styled.div`
   flex: 1;
   text-align: center;
   display: flex;
+  justify-content: center;
 `;
 
 const Logo = styled.h1`
@@ -65,18 +71,18 @@ const Right = styled.div`
 `;
 
 const MenuItem = styled.div`
-  font-size: 14px;
+  font-size: 18px;
   cursor: pointer;
   margin-left: 25px;
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 
   & a {
+    text-decoration: none;
     color: #000;
-    text-decoration: none;  
   }
 
   &:hover a{
-    color: #ff3d00;
+    color: red;
   }
 `;
 
@@ -88,19 +94,20 @@ const Navbar = () => {
     <Container>
       <Wrapper>
         <Left>
-         <Logo>LAMA.</Logo>
+          <Logo>LAMAHA</Logo>
         </Left>
         <Center>
-          <MenuItem><Link to = '/'>Home</Link></MenuItem>
-          <MenuItem><Link to = '/about'>About</Link></MenuItem>
-          <MenuItem><Link to = '/contact'>Contact</Link></MenuItem>
+        <MenuItem><Link to = '/'>Home</Link></MenuItem>
+        <MenuItem><Link to = '/about'>About</Link></MenuItem>
+        <MenuItem><Link to = '/contact'>Contact</Link></MenuItem>
+          
         </Center>
         <Right>
           <SearchContainer>
             <Input placeholder="Search" />
             <SearchIcon style={{ color: "gray", fontSize: 16 }} />
           </SearchContainer>
-          <MenuItem><Link to = '/login'>LOGIN</Link></MenuItem>
+          <MenuItem><Link to = '/login'>Login</Link></MenuItem>
           <MenuItem>
             <Link to='/cart'>
               <Badge badgeContent={quantity} color="primary">

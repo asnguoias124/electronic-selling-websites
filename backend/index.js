@@ -50,7 +50,7 @@ app.use('/v1/user', userRoute);
 app.use('/v1/cart',cartRoute);
 app.use('/v1/order', orderRoute);
 
-app.post('/pay', (req, res) => {
+app.post('/pay', cors(),(req, res) => {
     try{const create_payment_json = {
         "intent": "sale",
         "payer": {
@@ -76,7 +76,7 @@ app.post('/pay', (req, res) => {
         } else {
             for (let i = 0; i < payment.links.length; i++) {
                 if (payment.links[i].rel === 'approval_url') {
-                    res.redirect(payment.links[i].href);
+                    res.json(payment.links[i].href);
                 }
             }
 
@@ -87,7 +87,7 @@ app.post('/pay', (req, res) => {
     }
 
 });
-app.get('/success',async (req, res) => {
+app.get('/success',cors(),async (req, res) => {
 
     const payerId = req.query.PayerID;
     const paymentId = req.query.paymentId;

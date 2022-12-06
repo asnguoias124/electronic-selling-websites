@@ -1,4 +1,4 @@
-  import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
   import SearchIcon from '@mui/icons-material/Search';
   import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { Link } from 'react-router-dom';
@@ -19,6 +19,25 @@ import { Link } from 'react-router-dom';
     transition: all 0.5s ease;
     cursor: pointer;
   `;
+
+  
+const InfoContainer = styled.div`
+flex: 1;
+padding: 0px 50px;
+z-index:5;
+`;
+
+const Title = styled.h1`
+  font-weight: 200;
+  font-size: 20px;
+  margin: 0;
+`;
+
+const Price = styled.span`
+  font-weight: 100;
+  font-size: 20px;
+  margin: 0;
+`;
   
   const Container = styled.div`
     flex: 1;
@@ -30,6 +49,7 @@ import { Link } from 'react-router-dom';
     justify-content: center;
     background-color: #f5fbfd;
     position: relative;
+    flex-direction: column;
   
     &:hover ${Info}{
       opacity: 1;
@@ -67,25 +87,30 @@ import { Link } from 'react-router-dom';
   
   const Product = ({ item }) => {
     return (
-      <Container>
-        <Circle />
-        <Image src={item.image} />
-        <Info>
-          <Icon>
-            <ShoppingCartIcon />
-          </Icon>
-          <Icon>
-            <Link to = {`/product/${item.id}`}>
-              <SearchIcon />
-            </Link>
-          </Icon>
-          <Icon>
-            <FavoriteBorderIcon />
-          </Icon>
-        </Info>
-      </Container>
+        <Container>
+          <>
+            <Circle />
+            <Image src={item.image} />
+            <Info>
+              <Icon>
+                <ShoppingCartIcon />
+              </Icon>
+              <Icon>
+                <Link to = {`/product/${item.id}`}>
+                  <SearchIcon />
+                </Link>
+              </Icon>
+              <Icon>
+                <FavoriteBorderIcon />
+              </Icon>
+            </Info>
+          </>
+          <InfoContainer>
+            <Title>{item.name}</Title>
+            <Price>$ {item.price}</Price>
+          </InfoContainer>
+        </Container>
     );
   };
   
   export default Product;
-  
