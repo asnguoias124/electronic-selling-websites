@@ -7,7 +7,7 @@ import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import axios from 'axios';
 import { Link, useNavigate } from "react-router-dom";
-
+import { loginUser } from '../redux/apiRequest';
 const KEY = process.env.REACT_APP_STRIPE;
 
 const Container = styled.div``;
@@ -191,6 +191,9 @@ const Cart = () => {
       window.open(response.data)
     })
   }
+  const user = useSelector(state => state.auth.login.currentUser);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   return (
     <Container>
       <Navbar />

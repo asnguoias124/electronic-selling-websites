@@ -1,6 +1,6 @@
 
 import './App.css';
-import Admin from './admin/Admin';
+// import Admin from './admin/Admin';
 import SignIn from './signin-signup/signin/login';
 import {Routes, Route} from 'react-router-dom';
 import SignUp from './signin-signup/signup/signUp';
@@ -13,6 +13,7 @@ import Cart from "./pages/Cart";
 import Product from "./pages/Product";
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Success from './pages/Success';
 
 
 function App() {
@@ -28,9 +29,10 @@ function App() {
           <Route path='/cart' element={<Cart />} />
           <Route path="/login" element={<SignIn />} />
           <Route path="/register" element={<SignUp />} /> 
-          <Route path = "/admin" element={<Admin />}/>
+          {/* <Route path = "/admin" element={<Admin />}/> */}
           <Route path = "/about" element={<About />}/>
           <Route path = "/contact" element={<Contact />}/>
+          <Route path = '/success' element= {<Success/>}/>
         </Routes>
       </ThemeProvider>
     </div>

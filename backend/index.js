@@ -107,7 +107,7 @@ app.get('/success',cors(),async (req, res) => {
             throw error;
         } else {
             console.log(JSON.stringify(payment));
-            res.send('Success (Mua hàng thành công)');
+            res.redirect('http://localhost:3000/success');
         }
     });
 });

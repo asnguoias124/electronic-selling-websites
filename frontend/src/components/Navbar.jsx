@@ -7,6 +7,7 @@ import { mobile } from "../responsive";
 import { useSelector} from 'react-redux'
 import { Link } from 'react-router-dom';
 
+
 const Container = styled.div`
   display: contents;
   ${mobile({ height: "50px" })}
