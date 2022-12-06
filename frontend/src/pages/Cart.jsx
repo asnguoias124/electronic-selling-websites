@@ -5,7 +5,7 @@ import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
-
+import axios from 'axios';
 import { Link, useNavigate } from "react-router-dom";
 
 const KEY = process.env.REACT_APP_STRIPE;
@@ -182,7 +182,12 @@ const Cart = () => {
   //   };
   //   stripeToken && makeRequest();
   // }, [stripeToken, cart.total, history]);
-
+  const handlePayment = () => {
+    console.log(cart.total);
+    axios.post('http://localhost:8000/pay', {
+      total: cart.total
+    },)
+  }
   return (
     <Container>
       <Navbar />
@@ -195,7 +200,7 @@ const Cart = () => {
             <TopText>Shopping Bag(2)</TopText>
             <TopText>Your Wishlist (0)</TopText>
           </TopTexts>
-          <TopButton type="filled">CHECKOUT NOW</TopButton>
+          <TopButton type="filled" onClick={() =>handlePayment()} >CHECKOUT NOW</TopButton>
         </Top>
         <Bottom>
         <Info>
