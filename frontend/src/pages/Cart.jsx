@@ -7,7 +7,10 @@ import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
 import axios from 'axios';
 import { Link, useNavigate } from "react-router-dom";
-import { loginUser } from '../redux/apiRequest';
+import { clearCart, loginUser, removeProductOfCart } from '../redux/apiRequest';
+import { useDispatch } from 'react-redux';
+import { dispatch } from 'react';
+import { clearProduct, removeProduct } from '../redux/cartRedux';
 const KEY = process.env.REACT_APP_STRIPE;
 
 const Container = styled.div``;
@@ -131,7 +134,6 @@ const Summary = styled.div`
   border: 0.5px solid lightgray;
   border-radius: 10px;
   padding: 20px;
-  height: 50vh;
 `;
 
 const SummaryTitle = styled.h1`
@@ -151,11 +153,13 @@ const SummaryItemText = styled.span``;
 const SummaryItemPrice = styled.span``;
 
 const Button = styled.button`
-  width: 100%;
-  padding: 10px;
-  background-color: black;
-  color: white;
-  font-weight: 600;
+width: 100%;
+padding: 10px;
+background-color: black;
+color: white;
+font-weight: 600;
+cursor: pointer;
+  border-radius: 5px;
 `;
 
 const Cart = () => {
@@ -191,9 +195,24 @@ const Cart = () => {
       window.open(response.data)
     })
   }
-  const user = useSelector(state => state.auth.login.currentUser);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+
+  const handleClear = () => {
+    //clear cart
+    // dispatch(clearProduct(cart.products))
+    // clear local storage
+    localStorage.removeItem("cart");
+    // reload page
+    //clear cart redux
+    dispatch(clearProduct(cart.products))
+    window.location.reload();
+  };
+
+  const handleDelete = () => {
+    //delete product
+    removeProductOfCart(cart.products, dispatch())
+
+  };
+ 
   return (
     <Container>
       <Navbar />
@@ -221,10 +240,6 @@ const Cart = () => {
                 <ProductId>
                   <b>ID:</b> {product.id}
                 </ProductId>
-                {/* <ProductColor color={product.color} /> */}
-                {/* <ProductSize>
-                  <b>Size:</b> {product.size}
-                </ProductSize> */}
               </Details>
             </ProductDetail>
             <PriceDetail>
@@ -235,8 +250,12 @@ const Cart = () => {
                 $ {product.price * product.quantity}
               </ProductPrice>
             </PriceDetail>
+            <PriceDetail>
+              <Button onClick={handleDelete} style={{    width: 70, height: 36}}>Xóa</Button>
+            </PriceDetail>
           </Product>
         ))}
+        <Button onClick={handleClear} style={{ width: 200,float: "right",marginTop: 20,marginRight:10}}>Clear</Button>
         <Hr />
         </Info>
           <Summary>
@@ -268,7 +287,7 @@ const Cart = () => {
               stripeKey={KEY}
             >
           </StripeCheckout> */}
-          <Button>CHECKOUT NOW</Button>
+          <Button onClick={() =>handlePayment()} >CHECKOUT NOW</Button>
           </Summary>
         </Bottom>
       </Wrapper>
