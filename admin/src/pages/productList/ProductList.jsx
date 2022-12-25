@@ -19,11 +19,13 @@ export default function ProductList() {
   };
 
   const columns = [
-    { field: "id", headerName: "ID", width: 220 },
+    { field: "id", headerName: "ID", 
+     flex: 1
+    },
     {
       field: "product",
       headerName: "Product",
-      width: 200,
+      flex: 1,
       renderCell: (params) => {
         return (
           <div className="productListItem">
@@ -33,16 +35,18 @@ export default function ProductList() {
         );
       },
     },
-    { field: "description", headerName: "description", width: 200 },
+    { field: "description", headerName: "description",
+    flex: 1
+    },
     {
       field: "price",
       headerName: "Price",
-      width: 160,
+      flex: 1
     },
     {
       field: "action",
       headerName: "Action",
-      width: 150,
+      flex: 1,
       renderCell: (params) => {
         return (
           <>
@@ -60,7 +64,11 @@ export default function ProductList() {
   ];
 
   return (
+
     <div className="productList">
+      <Link to="/newproduct">
+        <button className="productAddButton m-10-50">Create</button>
+      </Link>
       <DataGrid
         rows={products}
         disableSelectionOnClick

@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./newProduct.css";
-import { addProduct } from "../../redux/apiCalls";
-import { useDispatch } from "react-redux";
+import { addProduct, getCategories } from "../../redux/apiCalls";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function NewProduct() {
   const [inputs, setInputs] = useState({});
-  // const [cat, setCat] = useState([]);
+  const categories = useSelector((state) => state.category.categories);
+
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
@@ -19,10 +20,14 @@ export default function NewProduct() {
 
   const handleClick = (e) => {
     e.preventDefault();
-    
+
     const product = { ...inputs };
     addProduct(product, dispatch);
   };
+
+  useEffect(() => {
+    getCategories(dispatch);
+  }, [dispatch]);
 
   return (
     <div className="newProduct">
@@ -66,15 +71,23 @@ export default function NewProduct() {
         </div>
         <div className="addProductItem">
           <label>Categories</label>
-          <input name="category" type="text" placeholder="jeans,skirts" onChange={handleChange} />
+          <select style={{ 'padding': '10px' }} name="category" onChange={handleChange} >
+            <option value="" hidden> PLEASE CHOOSE CATEGORY</option>
+            {categories.map(cat =>
+              <option key={cat.id} value={cat.id} defaultChecked>{cat.name}</option>
+            )};
+          </select>
         </div>
+
         <div className="addProductItem">
           <label>Quantity</label>
           <input name="quantity" type="text" placeholder="jeans,skirts" onChange={handleChange} />
         </div>
-        <button onClick={handleClick} className="addProductButton">
-          Create
-        </button>
+        <div>
+          <button onClick={handleClick} className="productAddButton">
+            Create
+          </button>
+        </div>
       </form>
     </div>
   );

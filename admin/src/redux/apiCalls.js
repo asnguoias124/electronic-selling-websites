@@ -14,6 +14,11 @@ import {
   addProductStart,
   addProductSuccess,
 } from "./productRedux";
+import {
+  getCategoryStart,
+  getCategorySuccess,
+  getCategoryFailure
+} from "./categoryRedux";
 
 export const login = async (dispatch, user) => {
   dispatch(loginStart());
@@ -62,5 +67,14 @@ export const addProduct = async (product, dispatch) => {
     dispatch(addProductSuccess(res.data));
   } catch (err) {
     dispatch(addProductFailure());
+  }
+};
+export const getCategories = async (dispatch) => {
+  dispatch(getCategoryStart());
+  try {
+    const res = await publicRequest.get("/category");
+    dispatch(getCategorySuccess(res.data));
+  } catch (err) {
+    dispatch(getCategoryFailure());
   }
 };
