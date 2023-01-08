@@ -32,7 +32,59 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.pine-tree img {
+  width: 10%;
+  position: fixed;
+  z-index: 2;
+}
+
+.pine-tree-left {
+  bottom: 0;
+  cursor: pointer;
+  z-index: -1;
+  animation: lighting 1s infinite;
+  transform: matrix(-.99, -.14, -.14, .99, 0, 0);
+  right: 93.5vw;
+}
+
+.pine-tree-right {
+  bottom: 0;
+  left: 93.5vw;
+  cursor: pointer;
+  z-index: -1;
+  animation: lighting 1s infinite;
+  transform: rotate(-8.21deg);
+}
+
+.pine-tree .santa-left {
+  bottom: 0;
+  left: 1vw;
+  cursor: pointer;
+  z-index: 2;
+  width: 6vw;
+}
+
+.pine-tree .santa-right {
+  bottom: 0;
+  right: 0;
+  cursor: pointer;
+  z-index: 2;
+  width: 3vw;
+}
+
+@keyframes lighting {
+  0% {
+    content: url("../public/asset/img/light-pine-tree.png");
+  }
+
+  100% {
+    content: url("../public/asset/img/pine-tree.png");
+  }
+
 }

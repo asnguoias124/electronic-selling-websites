@@ -27,8 +27,8 @@ const ImgContainer = styled.div`
 
 const Image = styled.img`
   width: 100%;
-  height: 90vh;
-  object-fit: cover;
+  height: 50vh;
+  object-fit: scale-down;
   ${mobile({ height: "40vh" })}
 `;
 
@@ -130,7 +130,7 @@ const Product = () => {
   const [quantity, setQuantity] = useState(1);
   const dispatch = useDispatch();
   const user = useSelector(state => state.auth.login.currentUser);
-  const userId= user._id;
+  const userId= user?._id;
 
 
   useEffect(() => {
@@ -166,8 +166,6 @@ const Product = () => {
 
   return (
     <Container>
-      <Navbar />
-      <Announcement />
       <Wrapper>
         <ImgContainer>
         <Image src={product.image} />
@@ -187,7 +185,7 @@ const Product = () => {
         </InfoContainer>
       </Wrapper>
       <Newsletter />
-      <Footer />
+   
     </Container>
   );
 };
