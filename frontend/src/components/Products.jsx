@@ -1,38 +1,44 @@
-import styled from "styled-components";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import Product from "./Product";
+import styled from 'styled-components';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import Product from './Product';
 import Spinner from './Spinner';
 
 const Container = styled.div`
-    padding: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    background-color: #f5fbfd;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  background-color: #f5fbfd;
 `;
 
-const Products = ({ cat, filters, sort }) => {
-
+const Products = ({ cat, filters, sort, search }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    console.log(cat);
+    console.log(search);
     const getProducts = async () => {
       try {
         setLoading(true);
-        const res = await axios.get(
-          cat
-            ? `http://localhost:8000/v1/product?category=${cat}`
-            : "http://localhost:8000/v1/product"
-        );
+        let url = '';
+        if (cat) {
+          url = `http://localhost:8000/v1/product?category=${cat}`;
+        } else if (search) {
+          url = `http://localhost:8000/v1/product${search}`;
+        } else {
+          url = 'http://localhost:8000/v1/product';
+        }
+        console.log(url);
+        const res = await axios.get(url);
         setProducts(res.data);
         setLoading(false);
-      } catch (err) { }
+      } catch (err) {}
     };
     getProducts();
-  }, [cat]);
+  }, [cat, search]);
 
   useEffect(() => {
     cat &&
@@ -43,14 +49,15 @@ const Products = ({ cat, filters, sort }) => {
           )
         )
       );
+    console.log(filteredProducts.length, products.length);
   }, [products, cat, filters]);
 
   useEffect(() => {
-    if (sort === "newest") {
+    if (sort === 'newest') {
       setFilteredProducts((prev) =>
         [...prev].sort((a, b) => a.createdAt - b.createdAt)
       );
-    } else if (sort === "asc") {
+    } else if (sort === 'asc') {
       setFilteredProducts((prev) =>
         [...prev].sort((a, b) => a.price - b.price)
       );
@@ -61,16 +68,22 @@ const Products = ({ cat, filters, sort }) => {
     }
   }, [sort]);
 
-  return (
-    loading ? <Spinner/> :
-      <Container>
-        {cat
-          ? filteredProducts.map((item) => <Product item={item} key={item.id} />)
-          : products
-            .slice(0, 8)
-            .map((item) => <Product item={item} key={item.id} />)
-        }
-      </Container>
+  return loading ? (
+    <Spinner />
+  ) : (
+    <Container>
+      {filteredProducts.length != 0 || products.length != 0 ? (
+        cat ? (
+          filteredProducts.map((item) => <Product item={item} key={item.id} />)
+        ) : (
+          products.map((item) => <Product item={item} key={item.id} />)
+        )
+      ) : (
+        <div style={{ fontWeight: 'bold' }}>
+          No products were found that met the criteria!
+        </div>
+      )}
+    </Container>
   );
 };
 

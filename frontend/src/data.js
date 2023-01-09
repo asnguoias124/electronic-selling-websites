@@ -8,7 +8,7 @@ export const sliderItem = [
       title: 'BLACK FRIDAY',
       desc: 'SALE UP TO 90% OFF',
       bg: 'f5fafd',
-      cat: 'smartwatch',
+      cat: 'watch',
     },
     {
       id: 2,
@@ -62,7 +62,7 @@ export const categories = [
     id: 3,
     img: "https://media-cdn-v2.laodong.vn/Storage/NewsPortal/2022/9/7/1090265/Screen-Shot-2022-09--02.jpg",
     title: "SMART WATCH",
-    cat: 'smartwatch',
+    cat: 'watch',
   },
 ];
 export const listShowrom = [

@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Newsletter from '../components/Newsletter';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
 const Title = styled.h1`
   margin: 20px;
 `;
@@ -129,8 +130,7 @@ const Contact = () => {
         <ContactInfo>
           <h3>Contact Infomation</h3>
           <Description>
-            Tìm siêu thị Thế Giới Di Động? Xin mời ghé thăm trang Tìm siêu thị
-            để xem bản đồ và địa chỉ các siêu thị trên toàn quốc.
+          Looking for LAMAHA supermarket? Please visit our <Link to='/about'>About us</Link> page to see a map and the addresses of our supermarkets nationwide.
           </Description>
           <Content>
             <p>Address: 622 Dixie Path , South Tobinchester 98336</p>
@@ -144,6 +144,10 @@ const Contact = () => {
         </ContactInfo>
         <ContactForm>
           <h3>Contact Form</h3>
+          <Description>
+          Please fill out the form if you have any feedback or requests.<br/>
+          Thank you.
+          </Description>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <FormRow>
               <Label>Title*</Label>
