@@ -1,11 +1,15 @@
 import styled from 'styled-components';
 import GoogleMapReact from 'google-map-react';
 import PlaceIcon from '@mui/icons-material/Place';
+import { mobile } from '../responsive';
 
 const GooogleMapWrapper = styled.div`
 width: 100%;
 padding: 20px 0;
 position: relative;
+${mobile({
+ height: '380px'
+})}
 `;
 
 
@@ -28,7 +32,7 @@ padding: 10px;
 box-shadow: rgb(0 0 0 / 30%) 0px 1px 4px -1px;
 border-radius: 2px;
 font-size: 14px;
-`;
+ `;
 
 const Text = styled.span`
 
@@ -37,7 +41,7 @@ const Text = styled.span`
 const Marker = ({ icon }) => <div>{icon}</div>;
 
 const GoogleMaps = ({ location }) => {
-  return (<>
+  return (
     <GooogleMapWrapper>
       <Position><Text>{location?.address}</Text></Position>
       <GoogleMapReact
@@ -56,6 +60,6 @@ const GoogleMaps = ({ location }) => {
         }
       </GoogleMapReact>
     </GooogleMapWrapper>
-  </>)
+  )
 }
 export default GoogleMaps;

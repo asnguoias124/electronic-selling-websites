@@ -3,6 +3,8 @@ import Newsletter from '../components/Newsletter';
 import { useState, useEffect } from 'react';
 import GoogleMaps from '../components/GoogleMaps';
 import { listShowrom } from "../data";
+import { mobile } from '../responsive';
+
 const Title = styled.h1`
   margin: 20px;
 `;
@@ -18,6 +20,9 @@ display: flex;
 padding: 20px;
 border: 1px solid #ccc;
 border-radius: 20px;
+${mobile({
+  flexDirection: 'column'
+})}
 `
 const StoreImg = styled.div`
 display: flex;
@@ -37,6 +42,10 @@ display: flex;
 gap: 50px;
 min-height: 650px;
 flex-direction: row;
+${mobile({
+  flexDirection: 'column',
+  borderBottom: '1px solid'
+})}
 `;
 
 const ListShowroom = styled.div`
@@ -77,6 +86,9 @@ const SearchShowroom = styled.input`
   width: 100%;
   min-width: 450px;
   box-sizing: border-box;
+  ${mobile({
+    minWidth: '200px'
+   })}
 `;
 
 
@@ -126,7 +138,9 @@ const About = () => {
         <ListShowroom>
           <h2>Showroom List</h2>
           <SearchShowroom onKeyUp={(event) => filltersShowroom(listShowrom, event.target.value)}
+          placeholder="Please enter district name"
           >
+          
           </SearchShowroom>
           {filteredArray.map((s) =>
             <ShowroomItem key={s.id} onClick={() => { handleChooseShowroom(s) }}>

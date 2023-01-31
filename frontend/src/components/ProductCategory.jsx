@@ -27,7 +27,6 @@ const CategoryWarpper = styled.div`
     maxWidth: '380px',
     minWidth: '310px',
   })}
-}
 `;
 const ListProduct = styled.div`
   display: flex;
@@ -54,6 +53,7 @@ const Title = styled.div`
   background-size: 129px 53px;
   background-repeat: no-repeat;
   background-position: left, right;
+   ${mobile({ fontSize: '30px' })}
 `;
 
 const StyledLink = styled(Link)`
@@ -102,6 +102,7 @@ const ProductCategory = () => {
   }, []);
 
   const handlerArrays = (catInput) => {
+    console.log(products)
     let arrayOfArrays = [];
     const chunkSize = 5;
     arrayOfArrays = products.filter(

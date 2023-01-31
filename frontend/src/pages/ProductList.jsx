@@ -4,7 +4,8 @@ import Newsletter from '../components/Newsletter';
 import { mobile } from '../responsive';
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
-
+import { categories } from '../data';
+import { Link } from 'react-router-dom';
 const Title = styled.h1`
   margin: 20px;
 `;
@@ -32,6 +33,37 @@ const Select = styled.select`
   ${mobile({ margin: '10px 0px' })}
 `;
 const Option = styled.option``;
+
+const Category = styled.div`
+  display: flex;
+  padding: 20px 10px;
+  justify-content: space-evenly;
+  text-decoration: none;
+  background-color: antiquewhite;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  flex-direction: row;
+  ${mobile({ padding: '0px' })}
+`;
+
+const LinkCategory = styled(Link)`
+  text-decoration: none;
+  color: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1%;
+  width: 20rem;
+  height: 5rem;
+  margin: 0 1%;
+
+  background-size: 100% 100%;
+  background-image: url(//cdn.tgdd.vn/mwgcart/mwg-site/ContentMwg/images/newyear2023/Background/bg-danh-muc-desktop.png);
+  ${mobile({ width: '8rem', height: '4rem', gap: '10px' })}
+`;
+const CategoryTitle = styled.h3`
+  ${mobile({ fontSize: '13px' })}
+`;
 
 const ProductList = () => {
   const location = useLocation();
@@ -70,6 +102,15 @@ const ProductList = () => {
   return (
     <>
       <Title>{handlerTitle(cat)}</Title>
+      {cat ? null : (
+        <Category>
+          {categories.map((item) => (
+            <LinkCategory key={item.id} to={`/products/${item.cat}`}>
+              <CategoryTitle>{item.title}</CategoryTitle>
+            </LinkCategory>
+          ))}
+        </Category>
+      )}
       <FilterContainer>
         <Filter>
           <FilterText>Sort Products:</FilterText>

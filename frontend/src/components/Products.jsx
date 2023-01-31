@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import Product from './Product';
 import Spinner from './Spinner';
+import { mobile } from '../responsive';
 const Container = styled.div`
   padding: 20px;
   display: flex;
@@ -10,6 +11,8 @@ const Container = styled.div`
   justify-content: flex-start;
   background-color: #f5fbfd;
   gap: 1%;
+  flex: 0 1 21%;
+  ${mobile({ flexDirection: 'column' })}
 `;
 
 const Products = ({ cat, filters, sort, search }) => {
@@ -18,8 +21,6 @@ const Products = ({ cat, filters, sort, search }) => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    console.log(cat);
-    console.log(search);
     const getProducts = async () => {
       try {
         setLoading(true);
@@ -33,24 +34,24 @@ const Products = ({ cat, filters, sort, search }) => {
         }
         console.log(url);
         const res = await axios.get(url);
-        setProducts(res.data);
+        setFilteredProducts(res.data);
         setLoading(false);
       } catch (err) {}
     };
     getProducts();
   }, [cat, search]);
 
-  useEffect(() => {
-    cat &&
-      setFilteredProducts(
-        products.filter((item) =>
-          Object.entries(filters).every(([key, value]) =>
-            item[key].includes(value)
-          )
-        )
-      );
-    console.log(filteredProducts.length, products.length);
-  }, [products, cat, filters]);
+  // useEffect(() => {
+  //   cat &&
+  //     setFilteredProducts(
+  //       products.filter((item) =>
+  //         Object.entries(filters).every(([key, value]) =>
+  //           item[key].includes(value)
+  //         )
+  //       )
+  //     );
+  //   console.log(filteredProducts.length, products.length);
+  // }, [products, cat, filters]);
 
   useEffect(() => {
     if (sort === 'newest') {
@@ -73,11 +74,7 @@ const Products = ({ cat, filters, sort, search }) => {
   ) : (
     <Container>
       {filteredProducts.length != 0 || products.length != 0 ? (
-        cat ? (
           filteredProducts.map((item) => <Product item={item} key={item.id} />)
-        ) : (
-          products.map((item) => <Product item={item} key={item.id} />)
-        )
       ) : (
         <div style={{ fontWeight: 'bold' }}>
           No products were found that met the criteria!

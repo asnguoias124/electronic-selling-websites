@@ -1,8 +1,11 @@
-import styled from 'styled-components';
-import Newsletter from '../components/Newsletter';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import styled from "styled-components";
+import Newsletter from "../components/Newsletter";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
+import { mobile } from "../responsive";
+import axios from "axios";
+import Spinner from "../components/Spinner";
 const Title = styled.h1`
   margin: 20px;
 `;
@@ -13,12 +16,20 @@ const Wrapper = styled.div`
   flex-direction: row;
   text-align: start;
   border: 1px solid #ddd;
-  border-radius: 10px; 
+  border-radius: 10px;
   margin-bottom: 20px;
+  ${mobile({
+    flexDirection: "column",
+    borderRadius: "0px",
+    border: "none",
+  })}
 `;
 const ContactInfo = styled.div`
   padding: 20px;
   flex: 1;
+  ${mobile({
+    borderBottom: "1px solid",
+  })}
 `;
 
 const ContactForm = styled.div`
@@ -49,6 +60,7 @@ const Input = styled.input`
   flex: 1;
   min-width: 40%;
   padding: 10px;
+  /* border-radius: 5px; */
 `;
 const Button = styled.button`
   width: 40%;
@@ -71,7 +83,7 @@ const Description = styled.div`
   background-repeat: no-repeat;
   border-bottom: 1px solid #ddd;
   color: #666;
-//   font-size: 14px;
+  //   font-size: 14px;
   line-height: 20px;
   margin-bottom: 15px;
   padding-bottom: 10px;
@@ -115,26 +127,42 @@ const Contact = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     console.log(data);
     setIsending(true);
-    alert('Thank you for your contact information!');
-    setIsending(false);
-    reset();
+    try {
+      const response = await axios.post("/v1/send-email", {
+        email: data.email,
+        title: data.title,
+        content: data.content,
+        fullname: data.fullname,
+        phone: data.phone,
+      });
+      console.log(response.data);
+      reset();
+      setIsending(false);
+      alert("Thank you for your contact information!");
+    } catch (error) {
+      setIsending(false);
+      console.error(error);
+    }
+    
   };
 
   return (
     <>
+      {isSending ? <Spinner /> : null}
       <Title>Contact us</Title>
       <Wrapper>
         <ContactInfo>
           <h3>Contact Infomation</h3>
           <Description>
-            Tìm kiếm siêu thị NHAT SHOP? Vui lòng truy cập trang "Giới thiệu về chúng tôi" của chúng tôi tại <Link to='/about'>đây</Link> để xem bản đồ và địa chỉ của các siêu thị của chúng tôi trên toàn quốc.
+            Tìm kiếm siêu thị NHAT SHOP? Vui lòng truy cập trang "Giới thiệu về
+            chúng tôi" của chúng tôi tại <Link to="/about">đây</Link> để xem bản
+            đồ và địa chỉ của các siêu thị của chúng tôi trên toàn quốc.
           </Description>
           <Content>
-            <p>Address: Cộng Hòa, Phường 13, Tân Bình, TP.HCM
-            </p>
+            <p>Address: Cộng Hòa, Phường 13, Tân Bình, TP.HCM</p>
             <p>
               Phone: <Tel>1 234 56 78</Tel>
             </p>
@@ -146,16 +174,18 @@ const Contact = () => {
         <ContactForm>
           <h3>Contact Form</h3>
           <Description>
-          Vui lòng điền vào biểu mẫu nếu bạn có bất kỳ phản hồi hoặc yêu cầu nào.<br/>
-          Thank you.
+            Vui lòng điền vào biểu mẫu nếu bạn có bất kỳ phản hồi hoặc yêu cầu
+            nào.
+            <br />
+            Thank you.
           </Description>
           <Form onSubmit={handleSubmit(onSubmit)}>
             <FormRow>
               <Label>Title*</Label>
               <InputContainer>
                 <Input
-                  placeholder='title'
-                  {...register('title', { required: true })}
+                  placeholder="title"
+                  {...register("title", { required: true })}
                 />
                 {errors.title && <Error>This field is required</Error>}
               </InputContainer>
@@ -164,8 +194,8 @@ const Contact = () => {
               <Label>Content*</Label>
               <InputContainer>
                 <Textarea
-                  placeholder='content'
-                  {...register('content', { required: true })}
+                  placeholder="content"
+                  {...register("content", { required: true })}
                 />
                 {errors.content && <Error>This field is required</Error>}
               </InputContainer>
@@ -174,19 +204,19 @@ const Contact = () => {
               <Label>Full name*</Label>
               <InputContainer>
                 <Input
-                  placeholder='fullname'
-                  {...register('fullname', { required: true })}
+                  placeholder="fullname"
+                  {...register("fullname", { required: true })}
                 />
                 {errors.fullname && <Error>This field is required</Error>}
               </InputContainer>
             </FormRow>
             <FormRow>
-              <Label>Email*</Label>{' '}
+              <Label>Email*</Label>{" "}
               <InputContainer>
                 <Input
-                  placeholder='email'
-                  type='email'
-                  {...register('email', { required: true })}
+                  placeholder="email"
+                  type="email"
+                  {...register("email", { required: true })}
                 />
                 {errors.email && <Error>This field is required</Error>}
               </InputContainer>
@@ -195,14 +225,14 @@ const Contact = () => {
               <Label>Phone*</Label>
               <InputContainer>
                 <Input
-                  placeholder='phone'
-                  type='phone'
-                  {...register('phone', { required: true })}
+                  placeholder="phone"
+                  type="phone"
+                  {...register("phone", { required: true })}
                 />
                 {errors.phone && <Error>This field is required</Error>}
               </InputContainer>
             </FormRow>
-            <Button type='submit'>Send</Button>
+            <Button type="submit">Send</Button>
           </Form>
         </ContactForm>
       </Wrapper>
